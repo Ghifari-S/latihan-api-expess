@@ -13,6 +13,13 @@ const {
   updateUserByIdAction,
   deleteUserByIdAction,
 } = require("./actions/users-action");
+const {
+  addOrderAction,
+  getAllOrderAction,
+  getOrderByIdAction,
+  updateOrderByIdAction,
+  deleteOrderByIdAction,
+} = require("./actions/orders-action");
 
 const app = express();
 app.use(express.json());
@@ -38,6 +45,19 @@ app.get("/api/users/:id", getUserByIdAction);
 app.put("/api/users/:id", updateUserByIdAction);
 
 app.delete("/api/users/:id", deleteUserByIdAction);
+
+// orders
+app.post("/api/orders", addOrderAction);
+
+app.get("/api/orders", getAllOrderAction);
+
+app.get("/api/orders/:id", getOrderByIdAction);
+
+app.put("/api/orders/:id", updateOrderByIdAction);
+
+app.delete("/api/orders/:id", deleteOrderByIdAction);
+
+// server
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
