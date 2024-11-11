@@ -10,7 +10,7 @@ app.post("/api/karyawans", (req, res) => {
   karyawan.karyawan_id = karyawanid++;
   karyawans.push(karyawan);
   res.status(201).json({
-    message: "karyawan berhasil ditambah",
+    message: "karyawan dah ditambah",
     karyawan_id: karyawan.karyawan_id,
   });
 });
@@ -19,41 +19,38 @@ app.get("/api/karyawans", (req, res) => {
   res.status(200).json(karyawans);
 });
 
-app.get("/api/orders/:id", (req, res) => {
-    const id = parseInt(req.params.id);
-    const order = orders.find((p) => p.order_id === id)
-    if (order){
-        res.status(200).json(order)
-    } else{
-        res.status(404).json({message: "order tdk ditemukan"})
-    }
-})
+app.get("/api/karyawans/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const karyawan = karyawans.find((p) => p.karyawan_id === id);
+  if (karyawan) {
+    res.status(200).json(karyawan);
+  } else {
+    res.status(404).json({ message: "karyawan undefind" });
+  }
+});
 
-app.put("/api/orders/:id", (req, res) => {
-    const id = parseInt(req.params.id); 
-    const orderIndex = orders.findIndex((p) => p.user_id === id);
-    if (orderIndex !== -1) {
-      orders[orderIndex] = { ...orders[orderIndexIndex], ...req.body }; 
-      res.status(200).json({ message: "order berhasil diperbarui" }); 
-    } else {
-      res.status(404).json({ message: "order tidak ditemukan" }); 
-    }
-  });
-  
-  
-  app.delete("/api/orders/:id", (req, res) => {
-    const id = parseInt(req.params.id); 
-    const orderIndex = orders.findIndex((p) => p.order_id === id); 
-    if (orderIndex !== -1) {
-      orders.splice(orderIndex, 1); 
-      res.status(200).json({ message: "order berhasil dihapus" }); 
-    } else {
-      res.status(404).json({ message: "order tidak ditemukan" }); 
-    }
-  });
+app.put("/api/karyawans/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const karyawanIndex = karyawans.findIndex((p) => p.karyawan_id === id);
+  if (karyawanIndex !== -1) {
+    karyawans[karyawanIndex] = { ...karyawans[karyawanIndex], ...req.body };
+    res.status(200).json({ message: "karyawan dah diupgrade" });
+  } else {
+    res.status(404).json({ message: "karyawannya gk ada" });
+  }
+});
 
-  app.listen(3000, () => {
-    console.log("Server running on port 3000"); 
-  });
-  
-  
+app.delete("/api/karyawans/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const karyawanIndex = karyawans.findIndex((p) => p.karyawan_id === id);
+  if (karyawanIndex !== -1) {
+    karyawans.splice(karyawanIndex, 1);
+    res.status(200).json({ message: "karyawan berhasil dipecat" });
+  } else {
+    res.status(404).json({ message: "karyawan tidak ditemukan" });
+  }
+});
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
