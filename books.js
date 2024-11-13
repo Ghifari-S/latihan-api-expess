@@ -23,7 +23,7 @@ app.get("/api/books/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const book = books.find((p) => p.book_id === id)
     if (book){
-        res.status(200).json(user)
+        res.status(200).json(book)
     } else{
         res.status(404).json({message: "buku tdk ditemukan"})
     }
