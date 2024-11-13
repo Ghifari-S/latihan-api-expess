@@ -2,8 +2,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-let karyawans = [];
-let karyawanid = 1;
+
 
 app.post("/api/karyawans", (req, res) => {
   const karyawan = req.body;

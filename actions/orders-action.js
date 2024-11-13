@@ -1,4 +1,10 @@
-const { addOrderGateway, getAllOrderGateway } = require("../gateways/orders-gateway");
+const {
+  addOrderGateway,
+  getAllOrderGateway,
+  getOrderByIdGateway,
+  updateOrderByIdGateway,
+  deleteOrderByIdGateway,
+} = require("../gateways/orders-gateway");
 
 // add order
 module.exports.addOrderAction = (req, res) => {
@@ -18,7 +24,7 @@ module.exports.getAllOrderAction = (req, res) => {
 // get order by id
 module.exports.getOrderByIdAction = (req, res) => {
   const id = parseInt(req.params.id);
-  
+  const order = getOrderByIdGateway(id);
   if (order) {
     res.status(200).json(order);
   } else {
@@ -29,7 +35,7 @@ module.exports.getOrderByIdAction = (req, res) => {
 // update order by id
 module.exports.updateOrderByIdAction = (req, res) => {
   const id = parseInt(req.params.id);
-  const result = updateOrderByIdGateway(id,req.body)
+  const result = updateOrderByIdGateway(id, req.body);
   if (result) {
     res.status(200).json({ message: "order berhasil diperbarui" });
   } else {
@@ -40,12 +46,10 @@ module.exports.updateOrderByIdAction = (req, res) => {
 // delete order by id
 module.exports.deleteOrderByIdAction = (req, res) => {
   const id = parseInt(req.params.id);
-  const orderIndex = orders.findIndex((p) => p.order_id === id);
-  if (orderIndex !== -1) {
-    orders.splice(orderIndex, 1);
+  const deleteResult = deleteOrderByIdGateway(id);
+  if (deleteResult) {
     res.status(200).json({ message: "order berhasil dihapus" });
   } else {
     res.status(404).json({ message: "order tidak ditemukan" });
   }
 };
-

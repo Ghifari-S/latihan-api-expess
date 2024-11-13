@@ -28,3 +28,14 @@ module.exports.updateOrderByIdGateway = (id,data) => {
         return true
       }
 }
+
+// delete order by id
+module.exports.deleteOrderByIdGateway = (id) => {
+    const orderIndex = orders.findIndex((p) => p.order_id === id);
+    if (orderIndex !== -1) {
+        orders.splice(orderIndex, 1);
+        return true
+      } else {
+        return false
+      }
+}
